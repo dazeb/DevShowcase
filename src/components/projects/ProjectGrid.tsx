@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import ProjectCard from "./ProjectCard";
+import ProjectDialog from "./ProjectDialog";
 import FilterBar from "./FilterBar";
 
 interface Project {
@@ -11,6 +12,12 @@ interface Project {
   likes: number;
   comments: number;
   demoUrl: string;
+  user: {
+    name: string;
+    avatar: string;
+    username: string;
+  };
+  createdAt: string;
 }
 
 interface ProjectGridProps {
@@ -71,6 +78,8 @@ const ProjectGrid = ({
   onFilterChange = () => {},
   onSortChange = () => {},
 }: ProjectGridProps) => {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
   return (
     <div className="w-full min-h-screen bg-gray-50 flex flex-col">
       <FilterBar onFilterChange={onFilterChange} onSortChange={onSortChange} />
@@ -88,11 +97,21 @@ const ProjectGrid = ({
                 likes={project.likes}
                 comments={project.comments}
                 demoUrl={project.demoUrl}
+                user={project.user}
+                createdAt={project.createdAt}
+                onClick={() => setSelectedProject(project)}
               />
             ))}
           </div>
         </div>
       </div>
+      {selectedProject && (
+        <ProjectDialog
+          project={selectedProject}
+          open={!!selectedProject}
+          onOpenChange={(open) => !open && setSelectedProject(null)}
+        />
+      )}
     </div>
   );
 };

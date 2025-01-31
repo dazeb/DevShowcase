@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "./layout/Navbar";
+import Footer from "./layout/Footer";
 import ProjectGrid from "./projects/ProjectGrid";
 
 interface HomeProps {
@@ -12,6 +13,12 @@ interface HomeProps {
     likes: number;
     comments: number;
     demoUrl: string;
+    user: {
+      name: string;
+      avatar: string;
+      username: string;
+    };
+    createdAt: string;
   }>;
 }
 
@@ -32,6 +39,12 @@ const Home = ({
       likes: 234,
       comments: 45,
       demoUrl: "#",
+      user: {
+        name: "Sarah Chen",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+        username: "sarahchen",
+      },
+      createdAt: "2024-01-15T08:00:00.000Z",
     },
     {
       id: "2",
@@ -48,6 +61,12 @@ const Home = ({
       likes: 189,
       comments: 32,
       demoUrl: "#",
+      user: {
+        name: "Alex Rivera",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+        username: "arivera",
+      },
+      createdAt: "2024-01-14T15:30:00.000Z",
     },
     {
       id: "3",
@@ -64,6 +83,12 @@ const Home = ({
       likes: 312,
       comments: 67,
       demoUrl: "#",
+      user: {
+        name: "Maya Patel",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Maya",
+        username: "mayap",
+      },
+      createdAt: "2024-01-13T11:20:00.000Z",
     },
   ],
 }: HomeProps) => {
@@ -86,7 +111,6 @@ const Home = ({
     <div className="min-h-screen bg-background">
       <Navbar onSearch={handleSearch} />
       <main className="pt-16">
-        {" "}
         {/* Add padding top to account for fixed navbar */}
         <ProjectGrid
           projects={initialProjects}
@@ -94,6 +118,7 @@ const Home = ({
           onSortChange={handleSortChange}
         />
       </main>
+      <Footer />
     </div>
   );
 };

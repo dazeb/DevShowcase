@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import NewProjectDialog from "../projects/NewProjectDialog";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -32,12 +33,13 @@ const Navbar = ({
   },
   onSearch = () => {},
 }: NavbarProps) => {
+  const [newProjectOpen, setNewProjectOpen] = useState(false);
   return (
     <nav className="w-full h-16 px-4 border-b bg-background flex items-center justify-between fixed top-0 z-50">
       <div className="flex items-center gap-8 flex-1">
         {/* Logo */}
         <a href="/" className="font-bold text-xl">
-          DevShowcase
+          codelaunch.dev
         </a>
 
         {/* Navigation Links */}
@@ -82,10 +84,18 @@ const Navbar = ({
           <Bell className="h-4 w-4" />
         </Button>
 
-        <Button>
+        <Button onClick={() => setNewProjectOpen(true)}>
           <Plus className="h-4 w-4 mr-2" />
           New Project
         </Button>
+        <NewProjectDialog
+          open={newProjectOpen}
+          onOpenChange={setNewProjectOpen}
+          onSubmit={(project) => {
+            console.log("New project:", project);
+            setNewProjectOpen(false);
+          }}
+        />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

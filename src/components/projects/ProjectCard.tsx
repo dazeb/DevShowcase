@@ -22,6 +22,13 @@ interface ProjectCardProps {
   likes?: number;
   comments?: number;
   demoUrl?: string;
+  user?: {
+    name: string;
+    avatar: string;
+    username: string;
+  };
+  createdAt?: string;
+  onClick?: () => void;
 }
 
 const ProjectCard = ({
@@ -36,9 +43,19 @@ const ProjectCard = ({
   likes = 42,
   comments = 12,
   demoUrl = "#",
+  user = {
+    name: "John Doe",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
+    username: "johndoe",
+  },
+  createdAt = new Date().toISOString(),
+  onClick,
 }: ProjectCardProps) => {
   return (
-    <Card className="w-[380px] h-[420px] bg-white overflow-hidden hover:shadow-lg transition-shadow duration-300">
+    <Card
+      className="w-[380px] h-[420px] bg-white overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+      onClick={onClick}
+    >
       <CardHeader className="p-0">
         <div className="relative h-48 w-full overflow-hidden">
           <img
